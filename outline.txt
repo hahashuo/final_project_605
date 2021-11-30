@@ -1,0 +1,29 @@
+Step 1: Download all data
+
+FOR TOPIC IN TOPICS:
+------------------------------------------------------ #Bash Script
+Step 2: Cut all data			
+	i. Divide each topic with unique IDs		find number of posts -- 
+	ii. Extract only body
+		a. Topic-ID.csv
+		chemistry-0.csv
+		chemistry-n.csv
+------------------------------------------------------#Rscript
+Step 4: Clean body		
+	i: Lowercase
+	ii: Remove Stop words 	Look up best methods in R
+	iii: Stem the words running -> run	Look up best methods in R
+	iv: Finish cleaning  Anything Else?
+Step 5: Create word frequency matrix
+	i. Topic-ID-TF.csv		#Output contains term frequency
+Step 6: Save to output	
+		------------------------------
+Step 7: Aggregate matrices for all files in a topic
+Step 8: Save final word-frequency matrix
+------------------------------------------------------
+
+Step 9: Visualize the final matrix
+
+
+
+Either a single vector passed into Rscript
