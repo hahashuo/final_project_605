@@ -1,0 +1,5 @@
+Counts.csv
+post1_commentCount, post1_answerCount, post1_score_Count
+post2_commentCount, post2_answerCount, post2_score_Count
+...
+postN_commentCount, postN_answerCount, postN_score_Count
