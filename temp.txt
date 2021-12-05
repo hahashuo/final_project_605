@@ -1,1 +1,16 @@
+academia.stackexchange.com.7z
+apple.stackexchange.com.7z
+aviation.stackexchange.com.7z
 coffee.stackexchange.com.7z
+chemistry.stackexchange.com.7z
+diy.stackexchange.com.7z
+electronics.stackexchange.com.7z
+history.stackexchange.com.7z
+law.stackexchange.com.7z
+mathematica.stackexchange.com.7z
+mechanics.stackexchange.com.7z
+money.stackexchange.com.7z
+movies.stackexchange.com.7z
+physics.stackexchange.com.7z
+softwareengineering.stackexchange.com.7z
+stackoverflow.com-Posts.7z
