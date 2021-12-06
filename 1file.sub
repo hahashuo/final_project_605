@@ -15,7 +15,7 @@ arguments = $(filePath)
 
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
-transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/R402.tar.gz, packages/textstem_0.1.4.tar.gz, cleanData.R, $(filePath), 1file.txt
+transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/R402.tar.gz, packages/textstem_0.1.4.tar.gz, packages/tm_0.7-8.tar.gz, cleanData.R, $(filePath), 1file.txt
 
 request_cpus = 1
 request_memory = 1GB
