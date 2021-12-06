@@ -8,6 +8,8 @@ if(length(args) == 1){
 print(csvPath)
 
 library(textstem)   #Used for lemmatize function
+library(tm)         #Used for removeWords and stopwords()
+
 print("here")
 
 data <- read.csv(csvPath, header = FALSE)
