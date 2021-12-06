@@ -1,0 +1,5 @@
+packages <- ("textstem")
+for (x in packages){
+  if(!is.element(x,installed.packages()[,1])){install.packages(x,repos="http://cran.fhcrc.org")}
+else {print(paste(x, "is already installed"))}
+} 
