@@ -1,0 +1,15 @@
+# R build file; run via "condor_submit -i interactive.sub"
+
+universe = vanilla
+log = interactive.log
+
+# Choose an R version from http://chtc.cs.wisc.edu/r-jobs.shtml#supported
+transfer_input_files = http://proxy.chtc.wisc.edu/SQUID/chtc/R402.tar.gz, install_R.sh
+
++IsBuildJob = true
+requirements = ( IsBuildSlot == true )
+request_cpus = 1
+request_memory = 2GB
+request_disk = 2GB
+
+queue

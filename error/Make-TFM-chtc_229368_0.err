@@ -1,0 +1,23 @@
+Loading required package: koRpus.lang.en
+Loading required package: koRpus
+Loading required package: sylly
+For information on available language packages for 'koRpus', run
+
+  available.koRpus.lang()
+
+and see ?install.koRpus.lang()
+
+Loading required package: NLP
+
+Attaching package: 'tm'
+
+The following object is masked from 'package:koRpus':
+
+    readTagged
+
+Error in file(file, "rt") : cannot open the connection
+Calls: read.csv -> read.table -> file
+In addition: Warning message:
+In file(file, "rt") :
+  cannot open file 'academia.stackexchange.com.7z/academia.stackexchange.com.7z.csv.00': No such file or directory
+Execution halted

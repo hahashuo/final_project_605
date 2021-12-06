@@ -1,6 +1,6 @@
 #!/bin/bash                                                                                                                                                                                                
 
-for topic in $(cat temp.txt)
+for topic in $(head -n 1 temp.txt)
 do
     mkdir $topic
     echo $topic
