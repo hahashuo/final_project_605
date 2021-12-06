@@ -1,4 +1,4 @@
-#!bin/bash                                                                                                                                                                                                 
+#!/bin/bash                                                                                                                                                                                                 
 
 for entry in temp.txt
 do
