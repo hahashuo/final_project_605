@@ -1,0 +1,4 @@
+chemistry.stackexchange.com.7z
+diy.stackexchange.com.7z
+electronics.stackexchange.com.7z
+history.stackexchange.com.7z
