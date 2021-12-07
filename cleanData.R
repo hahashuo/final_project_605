@@ -11,8 +11,10 @@ library(textstem)   #Used for lemmatize function
 library(tm)         #Used for removeWords and stopwords()
 
 print("here")
+parts <- strsplit(csvPath,"/")
+file <- parts[[1]][2]
 
-data <- read.csv(csvPath, header = FALSE)
+data <- read.csv(file, header = FALSE)
 
 #Soft Cleaning
 x <- data[,1]   #create temp vector to store changes
@@ -37,12 +39,11 @@ data[ , 1]  <- x     #save temp vector to dataframe
 freq<-sort(table(x), decreasing=TRUE)
 
             
-a <- strsplit(csvPath,"/")
-topic <- a[[1]][5]
+topic <- parts[[1]][1]
 prefix <- paste0(topic,"-TF")
 
 n_last <- 2                                # Specify number of characters to extract
-ID <- substr(a[[1]][6], nchar(a[[1]][6]) - n_last + 1, nchar(a[[1]][6]))
+ID <- substr(file, nchar(file) - n_last + 1, nchar(file))
 
 suffix <- paste0('.csv.',ID)
 filename <- paste0(prefix,suffix)
