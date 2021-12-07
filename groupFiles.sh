@@ -1,9 +1,14 @@
-#!/bin/bash                                                                                                                                                                                                 
+#!/bin/bash                                                                                                                                                                                                
 
-for entry in temp.txt
+for entry in $(cat temp.txt)
 do
-    for name in $(find -iname "$entry.csv*")
+echo $entry
+    for name in $(find -iname "$entry-TF.csv*")
     do
-        mv $name home/bressett/$entry     #Change to your NetID
+        echo $name
+	name="${name:2}"
+	echo $name
+        mv $name $entry
     done
 done
+
