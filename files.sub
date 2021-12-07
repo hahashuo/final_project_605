@@ -1,4 +1,4 @@
-# Before running this with "condor_submit 1file.sub", the
+# Before running this with "condor_submit files.sub", the
 # directories log, error, and output must exist.
 
 universe = vanilla
