@@ -56,6 +56,8 @@ data <- data %>%
 
 data <- read.csv("linePLot-formatData.csv")
 
+a <- colnames(data)
+b <- sapply(a,paste0,"_w")
 #create heatmap of chisq test of independence between topics
 vars <- colnames(data)
 efficientVarList <- vars
