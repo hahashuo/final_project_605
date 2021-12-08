@@ -61,6 +61,31 @@ shinyUI(fluidPage(
                                  
                              )  
                          ),
-                ) #close second tab
+                ), #close second tab
+               tabPanel("Run Inference by Topic",
+                        sidebarLayout( # Sidebar 
+                            sidebarPanel(
+                                radioButtons(
+                                    inputId= "test",
+                                    label = "Select whether to run a test of independence between topics or a goodness of
+                                    fit between some topics and a random sample from an exponetial distribution with the topic's inverse mean frequency as the parameter.",
+                                    choices = c("Independence", "GoodFit"),
+                                    choiceNames = c("Independence", "GoodFit"),
+                                    choiceValues = c("Independence", "GoodFit")
+                                ),
+                                multiInput(
+                                    inputId = "topicsInference",
+                                    label = "Select which topics you would like to test", 
+                                    choices = colnames(curvePlotsData),
+                                    choiceNames = colnames(curvePlotsData),
+                                    choiceValues = colnames(curvePlotsData),
+                                )),
+                            
+                            # Show a plot of the generated distribution
+                            mainPanel(
+                                plotOutput("pValPlot"),
+                            )  
+                        ),
+               ), #closes third tab
     ) #Close Navbar
 )) #Close Shiny UI
