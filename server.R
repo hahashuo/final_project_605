@@ -12,6 +12,7 @@ library(dplyr)
 library(ggplot2)
 library(paletteer)
 library(wordcloud)  #install.packages('Rcpp')   install.packages('wordcloud')
+library(reshape2) #install.packages('reshape2')
 
 curvePlotsData <- read.csv("linePLot-formatData.csv")
 curvePlotsData <- curvePlotsData[,-1] #remove needless index variable
@@ -22,6 +23,10 @@ wordFreqData <- wordFreqData[,-1] #remove needless index variable
 
 plot_topic_curve <- function(topic,data){
     ggplot(data, aes(x=index,y=data[,topic]))+ geom_line()
+}
+
+inv <- function(x){
+    return(x^-1)
 }
 
 
@@ -62,4 +67,78 @@ shinyServer(function(input, output) {
         }
     }) #close table select
     
-})
+    output$pValPlot <- renderPlot({
+        if (input$test == "Independence"){
+            n <- length(input$topicsInference)
+            if(n > 1){
+                vars <- sapply(input$topicsInference, paste0,"_f")
+                efficientVarList <- vars
+                pVals <- matrix(0, nrow = n, ncol = n, dimnames = list(vars,vars))
+                for (var1 in vars){
+                    efficientVarList <- efficientVarList[-1]
+                    for (var2 in efficientVarList){
+                        pVals[var1,var2] <- chisq.test(wordFreqData[,var1],wordFreqData[,var2])$p.value
+                    }
+                }
+                melted_pVals <- melt(pVals)
+                #plot independence tests
+                ggplot(data = melted_pVals, aes(x=Var1, y=Var2, fill=value)) + 
+                    geom_tile() + theme(axis.text.x = element_text(color = "#993333", 
+                                                                   size = 12, angle = 270)) + 
+                    theme(axis.text.y = element_text(color = "#993333", 
+                                                     size = 10)) + 
+                    paletteer::scale_fill_paletteer_c("viridis::plasma")
+            }#close validate
+        } #close ind test
+        else{
+            n <- length(input$topicsInference)
+            if(n != 0){
+                vars <- sapply(input$topicsInference, paste0,"_f")
+                efficientVarList <- vars
+                
+                means <- wordFreqData %>% 
+                    select(vars) %>% summarise_all(mean)
+                
+                trimmed <- wordFreqData %>% select(vars)
+                
+                params_exponent <- means %>%
+                    mutate_all(inv) 
+                
+                colnames(params_exponent) <- vars
+
+                first <- 1
+                for (topic in vars){
+                    if (first){
+                        theoretical_dists <- sort(rexp(100,params_exponent[,topic]),decreasing = TRUE)
+                        theoretical_dists <- data.frame(theoretical_dists)
+                        colnames(theoretical_dists) <- c(paste0("thry-",topic))
+                        print(colnames(theoretical_dists))
+                        first <- 0
+                    }
+                    else{
+                        temp <- sort(rexp(100,params_exponent[,topic]),decreasing = TRUE)
+                        theoretical_dists[,paste0("thry-",topic)] <- temp
+                    }
+                }#close simulate new data with sample means
+                efficientVarList <- colnames(theoretical_dists)
+                pValGoodnessFit <- matrix(0, nrow = n, ncol = n, dimnames = list(vars,efficientVarList))
+                for (i in 1:n){
+                    pValGoodnessFit[i,i] <- chisq.test(trimmed[,i],theoretical_dists[,i])$p.value
+                }
+                
+                melted_pValsGoodnessFit <- melt(pValGoodnessFit)
+                
+                #plot goodness of fits tests
+                ggplot(data = melted_pValsGoodnessFit, aes(x=Var1, y=Var2, fill=value)) + 
+                    geom_tile() + theme(axis.text.x = element_text(color = "#993333", 
+                                                                   size = 12, angle = 270)) + 
+                    theme(axis.text.y = element_text(color = "#993333", 
+                                                     size = 10)) + 
+                    paletteer::scale_fill_paletteer_c("viridis::plasma")
+            }#close validate
+        }#close goodness of fit test
+        
+
+})#close inference section
+    
+})#Close server
