@@ -26,14 +26,14 @@ shinyUI(fluidPage(
                             label = "Select which topics you would like to see", 
                             choices = colnames(curvePlotsData),
                             choiceNames = colnames(curvePlotsData),
-                            choiceValues = colnames(curvePlotsData),
+                            choiceValues = colnames(curvePlotsData)
                         )),
                             
                         # Show a plot of the generated distribution
                         mainPanel(
-                            plotOutput("distPlot"),
+                            plotOutput("distPlot")
                         )  
-                    ),
+                    )
                 ), #closes first tab
                 tabPanel("See the Important Words",
                          # Sidebar with a slider input for number of bins
@@ -52,15 +52,15 @@ shinyUI(fluidPage(
                                      label = "Select which topics you would like to see", 
                                      choices = colnames(curvePlotsData),
                                      choiceNames = colnames(curvePlotsData),
-                                     choiceValues = colnames(curvePlotsData),
+                                     choiceValues = colnames(curvePlotsData)
                                  )),
                              
                              # Show a plot of the generated distribution
                              mainPanel(
-                                 tableOutput("mostFreq"),
+                                 tableOutput("mostFreq")
                                  
                              )  
-                         ),
+                         )
                 ), #close second tab
                tabPanel("Run Inference by Topic",
                         sidebarLayout( # Sidebar 
@@ -78,14 +78,31 @@ shinyUI(fluidPage(
                                     label = "Select which topics you would like to test", 
                                     choices = colnames(curvePlotsData),
                                     choiceNames = colnames(curvePlotsData),
-                                    choiceValues = colnames(curvePlotsData),
+                                    choiceValues = colnames(curvePlotsData)
                                 )),
                             
                             # Show a plot of the generated distribution
                             mainPanel(
-                                plotOutput("pValPlot"),
+                                plotOutput("pValPlot")
                             )  
-                        ),
+                        )
                ), #closes third tab
+               tabPanel("Explore topics' relations",
+                        sidebarLayout( # Sidebar 
+                          sidebarPanel(                
+                            multiInput(
+                              inputId = "networkTopics",
+                              label = "Select which topics you would like to see", 
+                              choices = colnames(curvePlotsData),
+                              choiceNames = colnames(curvePlotsData),
+                              choiceValues = colnames(curvePlotsData)
+                            )),
+                          
+                          # Show a plot of the generated distribution
+                          mainPanel(
+                            visNetworkOutput("networkPlot")
+                          )  
+                        )
+               ) #closes forth tab
     ) #Close Navbar
 )) #Close Shiny UI

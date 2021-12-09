@@ -13,6 +13,9 @@ library(ggplot2)
 library(paletteer)
 library(wordcloud)  #install.packages('Rcpp')   install.packages('wordcloud')
 library(reshape2) #install.packages('reshape2')
+library(tidyverse)
+library(visNetwork)
+library(stringr)
 
 curvePlotsData <- read.csv("linePLot-formatData.csv")
 curvePlotsData <- curvePlotsData[,-1] #remove needless index variable
@@ -140,5 +143,46 @@ shinyServer(function(input, output) {
         
 
 })#close inference section
+    
+    output$networkPlot <- renderVisNetwork({
+        topics <- input$networkTopics
+        if(length(topics) < 2){
+            return(NULL)
+        }
+        data <- wordFreqData
+        reserve_columns <- paste0(topics, "_w")
+        # reserve_index <- sapply(colnames(data), FUN = function(x){
+        #   result <- sapply(topics, function(y){ grepl(y, x)})
+        #   return(any(result))
+        # })
+        words <- data[reserve_columns]
+        topic_number = length(topics)
+        relation = data.frame()
+        relation_matrix = matrix(rep(0, topic_number^2), nrow = topic_number)
+        for(i in 1:topic_number){
+            for(j in i:topic_number){
+                relation_matrix[i, j] = length(intersect(words[,i], words[,j]))
+                if(relation_matrix[i, j] > 40 && i!=j){
+                    relation = rbind(c(topics[i], topics[j], relation_matrix[i, j]/5-5), relation)
+                    row.names(relation)=NULL
+                }
+            }
+        }
+        
+        names(data) = topics
+        top10 = apply(words, 2, function(x){
+            return(paste(x[1:10],collapse = ", "))
+        })
+        top10 <- data.frame(label = topics, title = top10)
+        row.names(top10) <- NULL
+        top10$id = top10$label
+        if(nrow(relation)> 1){
+            colnames(relation) = c("from", "to", "width")
+            relation$label = relation$width
+            visNetwork(nodes = top10, edges = relation)
+        }else{
+            visNetwork(nodes = top10)
+        }
+    }) #Close network plot
     
 })#Close server
