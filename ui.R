@@ -24,18 +24,10 @@ shinyUI(fluidPage(
                           strong("Welcome. Let's start with the analysis on Stack Exchange Topics\n"),
                           br(),
                           strong("Our Data:"),
-                          p("Stack Exchange Posts from approximately 160 different topics"),
+                          p("Nearly 6GB of Stack Exchange Posts from approximately 160 different topics"),
                           strong("Analysis Goal:"),
                           p("What are similarities and differences between topics mentioned in different themes? "),
                           p("Are frequencies of highest used words very similar, or do they vary from topic to topic?"),
-                        
-                          br(),
-                          code("code displays your text similar to computer code"),
-                          div("div creates segments of text with a similar style. This division of text is all blue because I passed the argument 'style = color:blue' to div", style = "color:blue"),
-                          br(),
-                          p("span does the same thing as div, but it works with",
-                            span("groups of words", style = "color:blue"),
-                            "that appear inside a paragraph.")
                ),
                tabPanel("Explore Zipf's Law",
                     sidebarLayout( # Sidebar 
