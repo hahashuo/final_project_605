@@ -90,7 +90,7 @@ shinyServer(function(input, output) {
                                                                    size = 12, angle = 270)) + 
                     theme(axis.text.y = element_text(color = "#993333", 
                                                      size = 10)) + 
-                    paletteer::scale_fill_paletteer_c("viridis::plasma")
+                    paletteer::scale_fill_paletteer_c("grDevices::Greens 3",-1)
             }#close validate
         } #close ind test
         else{
@@ -108,7 +108,7 @@ shinyServer(function(input, output) {
                     mutate_all(inv) 
                 
                 colnames(params_exponent) <- vars
-
+                
                 first <- 1
                 for (topic in vars){
                     if (first){
@@ -137,12 +137,12 @@ shinyServer(function(input, output) {
                                                                    size = 12, angle = 270)) + 
                     theme(axis.text.y = element_text(color = "#993333", 
                                                      size = 10)) + 
-                    paletteer::scale_fill_paletteer_c("viridis::plasma")
+                    paletteer::scale_fill_paletteer_c("grDevices::Greens 3",-1)
             }#close validate
         }#close goodness of fit test
         
-
-})#close inference section
+        
+    })#close inference section
     
     output$networkPlot <- renderVisNetwork({
         topics <- input$networkTopics
@@ -151,10 +151,6 @@ shinyServer(function(input, output) {
         }
         data <- wordFreqData
         reserve_columns <- paste0(topics, "_w")
-        # reserve_index <- sapply(colnames(data), FUN = function(x){
-        #   result <- sapply(topics, function(y){ grepl(y, x)})
-        #   return(any(result))
-        # })
         words <- data[reserve_columns]
         topic_number = length(topics)
         relation = data.frame()
