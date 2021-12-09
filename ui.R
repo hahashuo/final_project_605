@@ -20,18 +20,22 @@ shinyUI(fluidPage(
     titlePanel("Natural Language in the Stack Exchange Network: An Analysis on Frequencies of the Top 100 Most Used Words per Topic"),
     navbarPage("Welcome",
                tabPanel(icon("home"),
+                      
+                          strong("Welcome. Let's start with the analysis on Stack Exchange Topics\n"),
+                          br(),
+                          strong("Our Data:"),
+                          p("Stack Exchange Posts from approximately 160 different topics"),
+                          strong("Analysis Goal:"),
+                          p("What are similarities and differences between topics mentioned in different themes? "),
+                          p("Are frequencies of highest used words very similar, or do they vary from topic to topic?"),
                         
-                            p("p creates a paragraph of text."),
-                            p("A new p() command starts a new paragraph. Supply a style attribute to change the format of the entire paragraph.", style = "font-family: 'times'; font-si16pt"),
-                            strong("strong() makes bold text."),
-                            em("em() creates italicized (i.e, emphasized) text."),
-                            br(),
-                            code("code displays your text similar to computer code"),
-                            div("div creates segments of text with a similar style. This division of text is all blue because I passed the argument 'style = color:blue' to div", style = "color:blue"),
-                            br(),
-                            p("span does the same thing as div, but it works with",
-                              span("groups of words", style = "color:blue"),
-                              "that appear inside a paragraph.")
+                          br(),
+                          code("code displays your text similar to computer code"),
+                          div("div creates segments of text with a similar style. This division of text is all blue because I passed the argument 'style = color:blue' to div", style = "color:blue"),
+                          br(),
+                          p("span does the same thing as div, but it works with",
+                            span("groups of words", style = "color:blue"),
+                            "that appear inside a paragraph.")
                ),
                tabPanel("Explore Zipf's Law",
                     sidebarLayout( # Sidebar 
@@ -47,8 +51,9 @@ shinyUI(fluidPage(
                         # Show a plot of the generated distribution
                         mainPanel(
                             plotOutput("distPlot")
-                        )  
-                    )
+                        )
+                    ),
+                    p("Generally, the lines are consistent with inverse propotional curve families. So, we draw the conclusion that Zipf's Law is obeyed.")
                 ), #closes first tab
                 tabPanel("See the Important Words",
                          # Sidebar with a slider input for number of bins
@@ -100,7 +105,8 @@ shinyUI(fluidPage(
                             mainPanel(
                                 plotOutput("pValPlot")
                             )  
-                        )
+                        ),
+                        p("We displayed important words here. The visualization results, sometimes, have some gaps to our expectation. Some words, like 'can', 'will' make no sense to detect the hottest words people are talking. However, the results still shows enogh important informati")
                ), #closes third tab
                tabPanel("Explore topics' relations",
                         sidebarLayout( # Sidebar 
@@ -118,6 +124,7 @@ shinyUI(fluidPage(
                             visNetworkOutput("networkPlot")
                           )  
                         )
-               ) #closes forth tab
+               ), #closes forth tab
+               p("The network plot shows the relationship among different topics, where the nodes are different topics and the edges show the existence of relationship. The numbers on the edge show the corelation score. This is an interactive plot. So, you can drag the node to make their relationship with other topics more distinguishable")
     ) #Close Navbar
 )) #Close Shiny UI
