@@ -9,6 +9,7 @@
 
 library(shiny)
 library(shinyWidgets)
+library(visNetwork)
 curvePlotsData <- read.csv("linePLot-formatData.csv")
 curvePlotsData <- curvePlotsData[,-1] #remove needless index variable
 
