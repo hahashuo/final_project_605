@@ -163,7 +163,7 @@ shinyServer(function(input, output) {
             for(j in i:topic_number){
                 relation_matrix[i, j] = length(intersect(words[,i], words[,j]))
                 if(relation_matrix[i, j] > 40 && i!=j){
-                    relation = rbind(c(topics[i], topics[j], relation_matrix[i, j]/5-5), relation)
+                    relation = rbind(c(topics[i], topics[j], relation_matrix[i, j]), relation)
                     row.names(relation)=NULL
                 }
             }
@@ -176,9 +176,9 @@ shinyServer(function(input, output) {
         top10 <- data.frame(label = topics, title = top10)
         row.names(top10) <- NULL
         top10$id = top10$label
-        if(nrow(relation)> 1){
-            colnames(relation) = c("from", "to", "width")
-            relation$label = relation$width
+        if(nrow(relation)>= 1){
+            colnames(relation) = c("from", "to", "label")
+            relation$width = as.integer(relation$label)/5-5
             visNetwork(nodes = top10, edges = relation)
         }else{
             visNetwork(nodes = top10)
