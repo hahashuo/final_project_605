@@ -19,7 +19,7 @@ format_linePlots <- function(dirName){
     }
   }
   data[,"index"] <- 1:100
-  write.csv(data,"linePlot-formatData.csv")
+  write.csv(data,"linePLot-formatData.csv")
 }
 format_linePlots("clean_data")
 format_wordFreq <- function(dirName){
